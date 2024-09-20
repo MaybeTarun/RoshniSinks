@@ -8,6 +8,7 @@
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -21,4 +22,16 @@ body {
 
 .crop1 {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 90% 100%, 85% 90%, 15% 90%, 10% 100%, 0 100%);
+}
+
+@keyframes bounce-horizontal {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+}
+.animate-bounce-horizontal {
+  animation: bounce-horizontal 1s infinite;
 }
