@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  background-color: #EDEEF0;
+}
+
+*::selection {
+  background: #688ED8;
+}
+
+.crop1 {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 90% 100%, 85% 90%, 15% 90%, 10% 100%, 0 100%);
+}
