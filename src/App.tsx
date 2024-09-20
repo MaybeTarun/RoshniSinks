@@ -12,6 +12,10 @@ import img21 from './assets/img21.png';
 import img22 from './assets/img22.png';
 import img3 from './assets/img3.png';
 import img4 from './assets/img4.png';
+import best from './assets/best.png';
+import buy from './assets/buy.png';
+import eye from './assets/eye.webp';
+import smile from './assets/smile.svg';
 import { FaInstagram, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
 
 function App() {
@@ -90,27 +94,27 @@ function Home() {
             </div>
           </div>
           <div className="lg:flex-grow bg-[#173B45] lg:rounded-[20px] rounded-[10px] p-6 text-[#F7FCFF] flex flex-col">
-            <h2 className="text-[clamp(20px,2vw,20px)] text-center mb-4">WE WOULD LOVE TO HAVE YOUR FEEDBACK</h2>
+            <h2 className="text-[clamp(16px,2vw,20px)] text-center mb-4">WE WOULD LOVE TO HAVE YOUR FEEDBACK</h2>
             <form className="flex flex-col justify-between h-full">
               <div className="space-y-3">
                 <input
                   type="text"
                   placeholder="Name"
-                  className="bg-[#f7fcff40] rounded p-2 text-[#F7FCFF] placeholder-gray-300 w-full text-[clamp(16px,1.5vw,16px)]"
+                  className="bg-[#f7fcff40] rounded p-2 text-[#F7FCFF] placeholder-gray-300 w-full text-[clamp(14px,1.5vw,16px)]"
                 />
                 <input
                   type="email"
                   placeholder="Email"
-                  className="bg-[#f7fcff40] rounded p-2 text-[#F7FCFF] placeholder-gray-300 w-full text-[clamp(16px,1.5vw,16px)]"
+                  className="bg-[#f7fcff40] rounded p-2 text-[#F7FCFF] placeholder-gray-300 w-full text-[clamp(14px,1.5vw,16px)]"
                 />
                 <textarea
                   placeholder="Feedback"
                   rows={3}
-                  className="bg-[#f7fcff40] rounded p-2 text-[#F7FCFF] placeholder-gray-300 resize-none w-full text-[clamp(16px,1.5vw,16px)]"
+                  className="bg-[#f7fcff40] rounded p-2 text-[#F7FCFF] placeholder-gray-300 resize-none w-full text-[clamp(14px,1.5vw,16px)]"
                 ></textarea>
                 <div className="mt-2 flex justify-between items-center">
                   <div>
-                    <label className="block mb-1 text-[clamp(16px,1.5vw,16px)]">Rating</label>
+                    <label className="block mb-1 text-[clamp(14px,1.5vw,16px)]">Rating</label>
                     <div className="flex gap-2">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <button
@@ -165,7 +169,7 @@ function Home() {
       </div>
 
       <div className="relative m-[-0.75rem] mt-28 lg:mt-32">
-        <img src={img3} alt="Kitchen background" className="w-full object-cover md:h-[600px] h-[300px] crop1" />
+        <img src={img3} alt="Kitchen background" className="w-full object-cover md:h-[600px] h-[300px] crop1 select-none" />
         <div className="absolute inset-x-0 top-0 transform -translate-y-1/3 flex justify-center">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-8 px-4 w-[85%]">
             {[
@@ -174,7 +178,7 @@ function Home() {
               { number: '03', text: 'Supreme Quality' },
               { number: '04', text: 'Client Satisfaction' },
             ].map((item) => (
-              <div key={item.number} className="bg-[#EF1923] text-[#F7FCFF] p-4 rounded-[20px] flex flex-col items-center justify-center aspect-square relative overflow-hidden">
+              <div key={item.number} className="bg-[#EF1923] text-[#F7FCFF] p-4 lg:rounded-[20px] rounded-[10px] flex flex-col items-center justify-center aspect-square relative overflow-hidden">
                 <span className="absolute inset-0 flex items-center justify-center font-bold opacity-30 bottom-4 md:bottom-8" style={{ fontSize: 'clamp(4rem, 20vw, 10rem)' }}>{item.number}</span>
                 <span className="text-center font-semibold relative z-10 leading-none top-6 md:top-14" style={{ fontSize: 'clamp(1rem, 3vw, 2.5rem)' }}>{item.text}</span>
               </div>
@@ -225,6 +229,41 @@ function Home() {
             </p>
           </div>
         ))}
+      </div>
+
+      <div className="lg:mt-24 mt-8 w-full select-none">
+        <div className="w-[80%] h-auto">
+          <img 
+            src={best}
+            alt="Best" 
+            className="w-full h-auto object-cover object-left"
+          />
+        </div>
+      </div>
+
+      <div className="lg:mt-8 mt-2 w-full flex justify-end select-none">
+        <div className="w-[80%] h-auto">
+          <img 
+            src={buy}
+            alt="Buy" 
+            className="w-full h-auto object-cover object-right"
+          />
+        </div>
+      </div>
+
+      <div className="flex justify-center lg:mt-8 mt-2 mb-8">
+        <a
+          href="/products"
+          className="bg-[#EF1923] text-[#F7FCFF] font-semibold py-2 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-[10px] lg:rounded-[20px] hover:translate-y-[-2px] transition-all duration-300 ease-in-out flex items-center"
+          style={{ fontSize: 'clamp(12px, 2vw, 18px)' }}
+        >
+          SHOP NOW
+        </a>
+      </div>
+
+      <div className="-m-3 w-screen bg-[#EF1923] h-16 md:h-28 lg:h-36 lg:mt-32 mt-10 mb-8 relative">
+        <img src={eye} alt="Eye" className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto lg:w-1/5 md:w-1/4 w-1/3 object-cover rounded-md" />
+        <img src={smile} alt="Smile" className="absolute left-1/2 bottom-2 lg:bottom-3 transform -translate-x-1/2 h-auto lg:w-[6.67%] md:w-[8.33%] w-[11.11%] object-cover" />
       </div>
 
     </div>

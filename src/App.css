@@ -12,6 +12,7 @@
 
 body {
   background-color: #EDEEF0;
+  overflow-x: hidden;
 }
 
 *::selection {
