@@ -5,7 +5,7 @@ import Products from './pages/Products';
 import Contact from './pages/Contact';
 import Blogs from './pages/Blogs';
 import './App.css';
-import With from './assets/With.png';
+import img0 from './assets/img0.png';
 import img1 from './assets/img1.png';
 import img2 from './assets/img2.png';
 import img21 from './assets/img21.png';
@@ -54,7 +54,7 @@ function Home() {
         </h1>
         <div className="flex items-center gap-4 md:gap-8">
           <h1 className="text-[clamp(26px,6vw,70px)] leading-tight font-light">WITH</h1>
-          <img src={With} alt="Sink" className="h-[clamp(10px,6vw,60px)] w-auto object-contain" />
+          <img src={img0} alt="Sink" className="h-[clamp(10px,6vw,60px)] w-auto object-contain" />
         </div>
         <h1 className="text-[clamp(26px,6vw,70px)] leading-tight font-light w-full">
           STATE-OF-THE-ART <span className="font-bold">SINKS</span>
@@ -73,7 +73,7 @@ function Home() {
               <img
                 src={images[currentImage]}
                 alt="Sinks"
-                className="w-full h-auto aspect-[2/1] lg:aspect-auto object-cover rounded-[20px]"
+                className="w-full h-auto aspect-[2/1] lg:aspect-auto object-cover lg:rounded-[20px] rounded-[10px]"
                 id="img2"
               />
               <div className="absolute bottom-4 right-4 flex space-x-2">
@@ -89,7 +89,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div className="lg:flex-grow bg-[#173B45] rounded-[20px] p-6 text-[#F7FCFF] flex flex-col">
+          <div className="lg:flex-grow bg-[#173B45] lg:rounded-[20px] rounded-[10px] p-6 text-[#F7FCFF] flex flex-col">
             <h2 className="text-[clamp(20px,2vw,20px)] text-center mb-4">WE WOULD LOVE TO HAVE YOUR FEEDBACK</h2>
             <form className="flex flex-col justify-between h-full">
               <div className="space-y-3">
@@ -175,8 +175,8 @@ function Home() {
               { number: '04', text: 'Client Satisfaction' },
             ].map((item) => (
               <div key={item.number} className="bg-[#EF1923] text-[#F7FCFF] p-4 rounded-[20px] flex flex-col items-center justify-center aspect-square relative overflow-hidden">
-                <span className="absolute inset-0 flex items-center justify-center font-bold opacity-20 bottom-4 md:bottom-8" style={{ fontSize: 'clamp(4rem, 20vw, 10rem)' }}>{item.number}</span>
-                <span className="text-center font-semibold relative z-10 leading-none top-4 md:top-12" style={{ fontSize: 'clamp(1rem, 3vw, 2.5rem)' }}>{item.text}</span>
+                <span className="absolute inset-0 flex items-center justify-center font-bold opacity-30 bottom-4 md:bottom-8" style={{ fontSize: 'clamp(4rem, 20vw, 10rem)' }}>{item.number}</span>
+                <span className="text-center font-semibold relative z-10 leading-none top-6 md:top-14" style={{ fontSize: 'clamp(1rem, 3vw, 2.5rem)' }}>{item.text}</span>
               </div>
             ))}
           </div>
