@@ -2,9 +2,10 @@ import '.././App.css';
 
 function Products() {
   return (
-    <div>
-      <h1>Products</h1>
+    <div className="pt-[85px] m-3">
+      Products
     </div>
+
   );
 }
 

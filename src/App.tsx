@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import Products from './pages/Products';
@@ -19,7 +19,7 @@ import smile from './assets/smile.svg';
 import quotes from './assets/quotes.png';
 import logo2 from './assets/logo2.png';
 import { FaInstagram, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion";
 
 function App() {
   return (
@@ -71,29 +71,200 @@ function Home() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const DURATION = 0.25;
+  const STAGGER = 0.025;
+
+  interface FlipTextProps {
+    children: string;
+  }
+
+  const FlipText: React.FC<FlipTextProps> = ({ children }) => {
+    return (
+      <motion.h2
+        initial="initial"
+        whileHover="hovered"
+        className="text-[clamp(18px,4vw,32px)] font-medium border-b-2 border-[#EF1923] pb-1 relative overflow-hidden whitespace-nowrap"
+      >
+        <div className="relative">
+          {children.split("").map((l: string, i: number) => (
+            <motion.span
+              key={i}
+              variants={{
+                initial: { y: 0 },
+                hovered: { y: "-100%" },
+              }}
+              transition={{
+                duration: DURATION,
+                ease: "easeInOut",
+                delay: STAGGER * i,
+              }}
+              className="inline-block"
+            >
+              {l}
+            </motion.span>
+          ))}
+        </div>
+        <div className="absolute inset-0">
+          {children.split("").map((l: string, i: number) => (
+            <motion.span
+              key={i}
+              variants={{
+                initial: { y: "100%" },
+                hovered: { y: 0 },
+              }}
+              transition={{
+                duration: DURATION,
+                ease: "easeInOut",
+                delay: STAGGER * i,
+              }}
+              className="inline-block"
+            >
+              {l}
+            </motion.span>
+          ))}
+        </div>
+      </motion.h2>
+    );
+  };
+
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+
+  const toggleFAQ = (index: number) => {
+    setOpenFAQ(openFAQ === index ? null : index);
+  };
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  interface SquareItemProps {
+    number: string;
+    text: string;
+    index: number;
+  }
+
+  const SquareItem: React.FC<SquareItemProps> = ({ number, text, index }) => {
+    const x = useTransform(
+      scrollYProgress,
+      [0, 0.5, 1],
+      index < 2 
+        ? ["-50%", "0%", "50%"]
+        : ["50%", "0%", "-50%"]
+    );
+
+    return (
+      <motion.div
+        style={{ x }}
+        className="bg-[#EF1923] text-[#F7FCFF] p-4 lg:rounded-[20px] rounded-[10px] flex flex-col items-center justify-center aspect-square relative"
+      >
+        <span className="absolute inset-0 flex items-center justify-center font-bold opacity-30 bottom-4 md:bottom-8 text-[clamp(4rem,20vw,10rem)]">{number}</span>
+        <span className="text-center font-semibold relative z-10 leading-none top-6 md:top-14 text-[clamp(1rem,3vw,2.5rem)]">{text}</span>
+      </motion.div>
+    );
+  };
+
+  const allReviews = [
+    {
+      text: "Loved the sink! It's durable, scratch-resistant, and looks great in my kitchen. Highly recommend it for anyone wanting a stylish and affordable sink.",
+      author: "Rekha Gupta",
+      rating: 5
+    },
+    {
+      text: "I was looking for a good sink on a budget for quite some time and Radmi was perfect! It's easy to clean, and looks amazing. Great value for the price!",
+      author: "Priya Mehta",
+      rating: 4
+    },
+    {
+      text: "I've been buying sinks from here for a long time now and have never been disappointed. The quality is always top-notch & last for years without any issues.",
+      author: "Karan Patel",
+      rating: 5
+    },
+    {
+      text: "The owner is so polite and helpful! He really takes the time to understand your needs and recommends the best option. Amazing customer service",
+      author: "Nikhil Sharma",
+      rating: 5
+    },
+    {
+      text: "I've had their sink for a few months now, and I'm really happy with it. It's resistant to stains and scratches, which is exactly what I needed.",
+      author: "Sunita Rao",
+      rating: 4
+    },
+    {
+      text: "I bought a handmade sink from them, and it's super durable and beautifully crafted. You can really tell the attention to detail that went into making it.",
+      author: "Anjali Desai",
+      rating: 5
+    }
+  ];
+
+  const [selectedReviews, setSelectedReviews] = useState<typeof allReviews>([]);
+
+  useEffect(() => {
+    const shuffled = [...allReviews].sort(() => 0.5 - Math.random());
+    setSelectedReviews(shuffled.slice(0, 2));
+  }, []);
+
   return (
     <div className="pt-[85px] m-3" id="reviewformL">
       <div className="flex flex-col">
-        <h1 className="text-[clamp(26px,6vw,70px)] leading-tight font-light tracking-[0.1em] w-full">
+        <motion.h1 className="text-[clamp(26px,6vw,70px)] leading-tight font-light tracking-[0.1em] w-full" 
+        initial={{ x: "-100vw" }}
+        animate={{ x: 0 }}
+        transition={{
+          duration: 1
+        }}>
           ELEVATING <span className="font-bold">KITCHENS</span>
-        </h1>
-        <div className="flex items-center gap-4 md:gap-8">
-          <h1 className="text-[clamp(26px,6vw,70px)] leading-tight font-light">WITH</h1>
-          <img src={img0} alt="Sink" className="h-[clamp(10px,6vw,60px)] w-auto object-contain" />
+        </motion.h1>
+        <div className="flex items-center gap-4 md:gap-8 overflow-hidden">
+          <motion.h1 className="text-[clamp(26px,6vw,70px)] leading-tight font-light" 
+        initial={{ x: "-100vw" }}
+        animate={{ x: 0 }}
+        transition={{
+          duration: 1
+        }}>
+          WITH
+        </motion.h1>
+          <motion.img 
+            src={img0} 
+            alt="Sink" 
+            className="h-[clamp(10px,6vw,60px)] w-auto object-contain"
+            initial={{ x: "100vw" }}
+            animate={{ x: 0 }}
+            transition={{ 
+              duration: 1
+            }}
+          />
         </div>
-        <h1 className="text-[clamp(26px,6vw,70px)] leading-tight font-light w-full">
+        <motion.h1 className="text-[clamp(26px,6vw,70px)] leading-tight font-light w-full" 
+        initial={{ x: "-100vw" }}
+        animate={{ x: 0 }}
+        transition={{
+          duration: 1
+        }}>
           STATE-OF-THE-ART <span className="font-bold">SINKS</span>
-        </h1>
+        </motion.h1>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-4">
+      <div className="flex flex-col lg:flex-row gap-4 mt-3">
         <div className="lg:flex-shrink-0">
-          <div className="relative">
+          <motion.div className="relative"
+            initial={{ y: "100vh" }}
+            animate={{ y: 0 }}
+            transition={{ 
+              duration: 1
+            }}>
             <img src={img1} alt="Kitchen View" className="w-full h-auto" />
-          </div>
+          </motion.div>
         </div>
         <div className="flex flex-col lg:flex-row gap-4" id="reviewformS">
-          <div className="lg:flex-shrink-0">
+          <motion.div className="lg:flex-shrink-0"
+          initial={{ y: "100vh" }}
+          animate={{ y: 0 }}
+          transition={{ 
+            duration: 1,
+            delay: 0.1
+          }}>
             <div className="relative">
               <img
                 src={images[currentImage]}
@@ -113,8 +284,14 @@ function Home() {
                 ))}
               </div>
             </div>
-          </div>
-          <div className="lg:flex-grow bg-[#173B45] lg:rounded-[20px] rounded-[10px] p-6 text-[#F7FCFF] flex flex-col">
+          </motion.div>
+          <motion.div className="lg:flex-grow bg-[#173B45] lg:rounded-[20px] rounded-[10px] p-6 text-[#F7FCFF] flex flex-col"
+          initial={{ y: "100vh" }}
+          animate={{ y: 0 }}
+          transition={{ 
+            duration: 1,
+            delay: 0.2
+          }}>
             <h2 className="text-[clamp(16px,2vw,20px)] text-center mb-4">WE WOULD LOVE TO HAVE YOUR FEEDBACK</h2>
             <form className="flex flex-col justify-between h-full">
               <div className="space-y-3">
@@ -160,12 +337,12 @@ function Home() {
                 </div>
               </div>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
 
       <div>
-        <h1 className="text-[#EF1923] font-bold lg:mt-8 mt-4 text-[clamp(22px,5vw,36px)]">
+        <h1 className="text-[#EF1923] font-bold lg:mt-16 mt-12 text-[clamp(22px,5vw,36px)]">
           Roshni Sinks
         </h1>
         <h2 className="text-black font-semibold text-[clamp(18px,3vw,28px)]">
@@ -189,20 +366,17 @@ function Home() {
         </div>
       </div>
 
-      <div className="relative m-[-0.75rem] mt-32">
+      <div className="relative m-[-0.75rem] lg:mt-48 mt-36" ref={containerRef}>
         <img src={img3} alt="Kitchen background" className="w-full object-cover md:h-[600px] h-[300px] crop1 select-none" />
-        <div className="absolute inset-x-0 top-0 transform -translate-y-1/3 flex justify-center">
+        <div className="absolute inset-x-0 top-0 transform -translate-y-1/3 flex justify-center overflow-hidden">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-8 px-4 w-[85%]">
             {[
               { number: '01', text: 'Innovative Team' },
               { number: '02', text: 'Modern Design' },
               { number: '03', text: 'Supreme Quality' },
               { number: '04', text: 'Client Satisfaction' },
-            ].map((item) => (
-              <div key={item.number} className="bg-[#EF1923] text-[#F7FCFF] p-4 lg:rounded-[20px] rounded-[10px] flex flex-col items-center justify-center aspect-square relative overflow-hidden">
-                <span className="absolute inset-0 flex items-center justify-center font-bold opacity-30 bottom-4 md:bottom-8 text-[clamp(4rem,20vw,10rem)]">{item.number}</span>
-                <span className="text-center font-semibold relative z-10 leading-none top-6 md:top-14 text-[clamp(1rem,3vw,2.5rem)]">{item.text}</span>
-              </div>
+            ].map((item, index) => (
+              <SquareItem key={item.number} number={item.number} text={item.text} index={index} />
             ))}
           </div>
         </div>
@@ -292,43 +466,26 @@ function Home() {
       </div>
 
       <div className="flex flex-col lg:flex-row justify-center items-center gap-8 mt-4 lg:mt-8 px-4">
-        <div className="bg-[#F7FCFF] rounded-lg p-4 shadow-md w-full lg:w-1/2 max-w-md border-2 border-black">
-          <div className="flex items-start mb-2">
-            <img src={quotes} alt="Quotes" className="w-8 h-8 mr-2" />
-          </div>
-          <p className="italic text-justify mb-4 text-[clamp(12px,2vw,20px)]">
-            Loved the sink! It's durable, scratch-resistant, and looks great in my kitchen. Highly recommend it for anyone wanting a stylish and affordable sink.
-          </p>
-          <div className="flex justify-between items-center">
-            <p className="font-semibold">- Tarun Gupta</p>
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                  <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                </svg>
-              ))}
+        {selectedReviews.map((review, index) => (
+          <div key={index} className="bg-[#F7FCFF] rounded-lg p-4 shadow-md w-full lg:w-1/2 max-w-md border-2 border-black">
+            <div className="flex items-start mb-2">
+              <img src={quotes} alt="Quotes" className="w-8 h-8 mr-2" />
+            </div>
+            <p className="italic text-justify mb-4 text-[clamp(12px,2vw,20px)]">
+              {review.text}
+            </p>
+            <div className="flex justify-between items-center">
+              <p className="font-semibold">- {review.author}</p>
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className={`w-4 h-4 ${i < review.rating ? 'text-yellow-400' : 'text-gray-300'} fill-current`} viewBox="0 0 20 20">
+                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                  </svg>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-
-        <div className="bg-[#F7FCFF] rounded-lg p-4 shadow-md w-full lg:w-1/2 max-w-md border-2 border-black">
-          <div className="flex items-start mb-2">
-            <img src={quotes} alt="Quotes" className="w-8 h-8 mr-2" />
-          </div>
-          <p className="italic text-justify mb-4 text-[clamp(12px,2vw,20px)]">
-            I was looking for a good sink on a budget for quite some time and Radmi was perfect! It's easy to clean, and looks amazing. Great value for the price!
-          </p>
-          <div className="flex justify-between items-center">
-            <p className="font-semibold">- John Doe</p>
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} className={`w-4 h-4 ${i < 4 ? 'text-yellow-400' : 'text-gray-300'} fill-current`} viewBox="0 0 20 20">
-                  <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                </svg>
-              ))}
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
 
       <div className="flex justify-center lg:mt-8 mt-6 mb-6 lg:mb-8">
@@ -380,11 +537,14 @@ function Home() {
             key={index} 
             className="mb-4 border border-black rounded-[10px] overflow-hidden transition-all duration-300 hover:shadow-lg"
           >
-            <div className="bg-[#F7FCFF] p-4 cursor-pointer relative group">
+            <div 
+              className="bg-[#F7FCFF] p-4 cursor-pointer relative"
+              onClick={() => toggleFAQ(index)}
+            >
               <div className="flex items-center justify-between">
                 <h3 className="font-semibold text-[clamp(14px,2vw,20px)]">{item.question}</h3>
                 <svg 
-                  className="w-5 h-5 text-black transform transition-transform duration-300 group-hover:rotate-90" 
+                  className={`w-5 h-5 text-black transform transition-transform duration-300 ${openFAQ === index ? 'rotate-90' : ''}`}
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24" 
@@ -393,7 +553,7 @@ function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </div>
-              <div className="mt-2 text-gray-600 overflow-hidden transition-all duration-300 max-h-0 group-hover:max-h-[1000px]">
+              <div className={`mt-2 text-gray-600 overflow-hidden transition-all duration-300 ${openFAQ === index ? 'max-h-[1000px]' : 'max-h-0'}`}>
                 <hr className="border-gray-300 my-2" />
                 {Array.isArray(item.answer) ? (
                   item.answer.map((line, i) => (
@@ -423,9 +583,11 @@ function Home() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
         </div>
-        <div className="text-center">
-          <h2 className="text-[clamp(18px,4vw,32px)] font-semibold border-b-2 border-[#EF1923] pb-1">Contact Us</h2>
+
+        <div className="text-center relative">
+          <FlipText>ContactUs</FlipText>
         </div>
+        
         <div className='px-4'>
           <a 
             href="/contact" 
@@ -451,8 +613,7 @@ function Home() {
           </a>
           <a href="mailto:shriharienterprises2011@gmail.com" className="mb-2 flex items-center text-[clamp(14px,1.5vw,16px)]">
             <FaEnvelope className="mr-2" /> shriharienterprises2011@gmail.com
-          </a>
-          <a href="https://maps.app.goo.gl/5555555555555555" className="flex items-start text-[clamp(14px,1.5vw,16px)]" target="_blank" rel="noopener noreferrer">
+          </a>          <a href="https://maps.app.goo.gl/5555555555555555" className="flex items-start text-[clamp(14px,1.5vw,16px)]" target="_blank" rel="noopener noreferrer">
             <FaMapMarkerAlt className="mr-2 mt-1 ml-0.5" /> Khasra No.86, Prahaladpur Bangar Near Nand Office Prahaladpur Delhi-110042
           </a>
         </div>
