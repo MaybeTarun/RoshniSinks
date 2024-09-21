@@ -19,6 +19,7 @@ import smile from './assets/smile.svg';
 import quotes from './assets/quotes.png';
 import logo2 from './assets/logo2.png';
 import { FaInstagram, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { motion } from "framer-motion"
 
 function App() {
   return (
@@ -51,14 +52,6 @@ function Home() {
   const handleIndicatorClick = (index: number) => {
     setCurrentImage(index);
   };
-
-  const TextAni = ({ children, href}: {children: string, href: string}) => {
-    return (
-      <a href={href} className="text-[clamp(18px,4vw,32px)]">
-        {children}
-      </a>
-    )
-  }
 
   useEffect(() => {
     const handleResize = () => {
