@@ -52,6 +52,14 @@ function Home() {
     setCurrentImage(index);
   };
 
+  const TextAni = ({ children, href}: {children: string, href: string}) => {
+    return (
+      <a href={href} className="text-[clamp(18px,4vw,32px)]">
+        {children}
+      </a>
+    )
+  }
+
   useEffect(() => {
     const handleResize = () => {
       const reviewButton = document.getElementById('reviewButton');
@@ -270,7 +278,7 @@ function Home() {
         </div>
       </div>
 
-      <div className="flex justify-center lg:mt-8 mt-6 mb-8">
+      <div className="flex justify-center lg:mt-8 mt-6 lg:-mr-3">
         <a
           href="/products"
           className="bg-[#EF1923] text-[#F7FCFF] font-semibold py-2 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-full hover:translate-y-[-2px] transition-all duration-300 ease-in-out flex items-center text-[clamp(12px,2vw,18px)]"
