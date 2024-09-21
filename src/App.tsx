@@ -17,7 +17,8 @@ import buy from './assets/buy.png';
 import eye from './assets/eye.webp';
 import smile from './assets/smile.svg';
 import quotes from './assets/quotes.png';
-import { FaInstagram, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
+import logo2 from './assets/logo2.png';
+import { FaInstagram, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 
 function App() {
   return (
@@ -163,7 +164,7 @@ function Home() {
       </div>
 
       <div>
-        <h1 className="text-[#EF1923] font-bold lg:mt-8" style={{ fontSize: 'clamp(22px, 5vw, 36px)' }}>
+        <h1 className="text-[#EF1923] font-bold lg:mt-8 mt-4" style={{ fontSize: 'clamp(22px, 5vw, 36px)' }}>
           Roshni Sinks
         </h1>
         <h2 className="text-black font-semibold" style={{ fontSize: 'clamp(18px, 3vw, 28px)' }}>
@@ -178,7 +179,7 @@ function Home() {
           <a href="https://instagram.com/roshni.sinks" target="_blank" rel="noopener noreferrer" className="text-[#173B45] hover:text-[#EF1923] hover:translate-y-[-2px] transition-all duration-300">
             <FaInstagram className="w-5 h-5 md:w-6 md:h-6" />
           </a>
-          <a href="https://wa.me/9350440613" target="_blank" rel="noopener noreferrer" className="text-[#173B45] hover:text-[#EF1923] hover:translate-y-[-2px] transition-all duration-300">
+          <a href="https://wa.me/9999333577" target="_blank" rel="noopener noreferrer" className="text-[#173B45] hover:text-[#EF1923] hover:translate-y-[-2px] transition-all duration-300">
             <FaWhatsapp className="w-5 h-5 md:w-6 md:h-6" />
           </a>
           <a href="mailto:shriharienterprises2011@gmail.com" target="_blank" rel="noopener noreferrer" className="text-[#173B45] hover:text-[#EF1923] hover:translate-y-[-2px] transition-all duration-300">
@@ -187,7 +188,7 @@ function Home() {
         </div>
       </div>
 
-      <div className="relative m-[-0.75rem] mt-28 lg:mt-32">
+      <div className="relative m-[-0.75rem] mt-32">
         <img src={img3} alt="Kitchen background" className="w-full object-cover md:h-[600px] h-[300px] crop1 select-none" />
         <div className="absolute inset-x-0 top-0 transform -translate-y-1/3 flex justify-center">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-8 px-4 w-[85%]">
@@ -243,7 +244,7 @@ function Home() {
         ].map((text, index) => (
           <div key={text} className={`p-2 rounded-lg ${index % 2 === 0 ? 'text-left' : 'text-right'}`}>
             <p className={`font-semibold border-b-2 border-black pb-1 ${index % 2 === 0 ? 'border-r-2' : 'border-l-2'}`}
-               style={{ fontSize: 'clamp(14px, 2.5vw, 24px)' }}>
+               style={{ fontSize: 'clamp(12px, 2.5vw, 24px)' }}>
               {text}
             </p>
           </div>
@@ -270,7 +271,7 @@ function Home() {
         </div>
       </div>
 
-      <div className="flex justify-center lg:mt-8 mt-2 mb-8">
+      <div className="flex justify-center lg:mt-8 mt-6 mb-8">
         <a
           href="/products"
           className="bg-[#EF1923] text-[#F7FCFF] font-semibold py-2 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-full hover:translate-y-[-2px] transition-all duration-300 ease-in-out flex items-center"
@@ -280,7 +281,7 @@ function Home() {
         </a>
       </div>
 
-      <div className="-m-3 w-screen bg-[#EF1923] h-16 md:h-28 lg:h-36 lg:mt-32 mt-10 mb-8 relative">
+      <div className="-m-3 w-screen bg-[#EF1923] h-16 md:h-28 lg:h-36 lg:mt-36 mt-16 mb-8 relative">
         <img src={eye} alt="Eye" className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto lg:w-1/5 md:w-1/4 w-1/3 object-cover rounded-md" />
         <img src={smile} alt="Smile" className="absolute left-1/2 bottom-2 lg:bottom-3 transform -translate-x-1/2 h-auto lg:w-[6.67%] md:w-[8.33%] w-[11.11%] object-cover" />
       </div>
@@ -296,7 +297,7 @@ function Home() {
           <div className="flex items-start mb-2">
             <img src={quotes} alt="Quotes" className="w-8 h-8 mr-2" />
           </div>
-          <p className="italic text-justify mb-4" style={{ fontSize: 'clamp(14px, 2vw, 20px)' }}>
+          <p className="italic text-justify mb-4" style={{ fontSize: 'clamp(12px, 2vw, 20px)' }}>
             Loved the sink! It's durable, scratch-resistant, and looks great in my kitchen. Highly recommend it for anyone wanting a stylish and affordable sink.
           </p>
           <div className="flex justify-between items-center">
@@ -315,7 +316,7 @@ function Home() {
           <div className="flex items-start mb-2">
             <img src={quotes} alt="Quotes" className="w-8 h-8 mr-2" />
           </div>
-          <p className="italic text-justify mb-4" style={{ fontSize: 'clamp(14px, 2vw, 20px)' }}>
+          <p className="italic text-justify mb-4" style={{ fontSize: 'clamp(12px, 2vw, 20px)' }}>
             I was looking for a good sink on a budget for quite some time and Radmi was perfect! It's easy to clean, and looks amazing. Great value for the price!
           </p>
           <div className="flex justify-between items-center">
@@ -331,7 +332,7 @@ function Home() {
         </div>
       </div>
 
-      <div className="flex justify-center lg:mt-8 mt-2 mb-2 lg:mb-4">
+      <div className="flex justify-center lg:mt-8 mt-6 mb-6 lg:mb-8">
         <a
           id="reviewButton"
           href="#reviewformS"
@@ -370,8 +371,8 @@ function Home() {
             question: "How to place Order ?",
             answer: [
               "Placing an order with Roshni is simple and convenient. You can choose from the following options:",
-              <>◉ <a href="tel:+919350440613" className="underline font-semibold">Call Us</a>: Contact us directly to place your order.</>,
-              <>◉ <a href="https://wa.me/9350440613" target="_blank" rel="noopener noreferrer" className="underline font-semibold">WhatsApp Catalog</a>: Use our WhatsApp catalog to browse, add products to your cart, and place your order.</>,
+              <>◉ <a href="tel:+919999333577" className="underline font-semibold">Call Us</a>: Contact us directly to place your order.</>,
+              <>◉ <a href="https://wa.me/9999333577" target="_blank" rel="noopener noreferrer" className="underline font-semibold">WhatsApp Catalog</a>: Use our WhatsApp catalog to browse, add products to your cart, and place your order.</>,
               <>◉ <a href="/products" className="underline font-semibold">Order Online</a>: Visit our website, fill your cart with the sinks you need, and click the Place Order button. Make sure you're logged in before placing the order.</>,
               "Once your order is placed, you will receive a confirmation email at the email address you provided, confirming your order details."
             ]
@@ -409,13 +410,13 @@ function Home() {
         ))}
       </div>
 
-      <div className="bg-[#F7FCFF] p-6 mt-8 w-screen -m-3 flex items-center justify-around h-[200px]">
+      <div className="bg-[#F7FCFF] p-6 mt-8 w-screen -m-3 flex items-center justify-between h-[200px]">
         <div className="flex items-center">
-          <span className="text-[clamp(16px,3vw,18px)] font-semibold mr-2 sm:mr-4 leading-tight">
+          <span className="text-[clamp(14px,3vw,18px)] font-semibold mr-2 sm:mr-4 leading-tight">
             Still got<br />doubts?
           </span>
           <svg 
-            className="w-5 h-5 sm:w-6 sm:h-6 text-black animate-bounce-horizontal" 
+            className="w-6 h-4 sm:w-8 sm:h-6 text-black animate-bounce-horizontal" 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24" 
@@ -425,9 +426,9 @@ function Home() {
           </svg>
         </div>
         <div className="text-center">
-          <h2 className="text-[clamp(20px,4vw,32px)] font-semibold border-b-2 border-[#EF1923] pb-1">Contact Us</h2>
+          <h2 className="text-[clamp(18px,4vw,32px)] font-semibold border-b-2 border-[#EF1923] pb-1">Contact Us</h2>
         </div>
-        <div>
+        <div className='px-4'>
           <a 
             href="/contact" 
             className="bg-[#EF1923] rounded-full p-2 inline-flex items-center justify-center transition-all duration-300 rotate-[-45deg] hover:rotate-[0deg]"
@@ -443,6 +444,48 @@ function Home() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </a>
+        </div>
+      </div>
+
+      <div className="bg-[#EF1923] p-6 w-screen -m-3 flex flex-col md:flex-row items-center justify-between">
+        <div className="flex flex-col text-[#F7FCFF] mb-4 md:mb-0 md:w-1/3">
+          <a href="tel:+919999333577" className="mb-2 flex items-center" style={{ fontSize: 'clamp(14px, 1.5vw, 16px)' }}>
+            <FaPhone className="mr-2" /> +91 99993 33577
+          </a>
+          <a href="mailto:shriharienterprises2011@gmail.com" className="mb-2 flex items-center" style={{ fontSize: 'clamp(14px, 1.5vw, 16px)' }}>
+            <FaEnvelope className="mr-2" /> shriharienterprises2011@gmail.com
+          </a>
+          <a href="https://maps.app.goo.gl/5555555555555555" className="flex items-start" style={{ fontSize: 'clamp(14px, 1.5vw, 16px)' }} target="_blank" rel="noopener noreferrer">
+            <FaMapMarkerAlt className="mr-2 mt-1 ml-0.5" /> Khasra No.86, Prahaladpur Bangar Near Nand Office Prahaladpur Delhi-110042
+          </a>
+        </div>
+        
+        <div className="mb-4 md:mb-0 md:w-1/3 flex justify-center p-4">
+          <img src={logo2} alt="Roshni Logo" className="h-20 lg:h-28" />
+        </div>
+        
+        <div className="flex flex-col items-start text-[#F7FCFF] md:w-1/3 lg:px-24 lg:py-2">
+          <h3 className="font-semibold mb-2" style={{ fontSize: 'clamp(16px, 2vw, 24px)' }}>Want to be the coolest in your group?</h3>
+          <p className="mb-2 opacity-80" style={{ fontSize: 'clamp(14px, 1.5vw, 16px)' }}>Subscribe to our newsletter</p>
+          <div className="flex flex-col w-full items-end">
+            <input 
+              type="email" 
+              placeholder="Enter your email" 
+              className="p-2 rounded-md w-full text-black mb-2"
+              style={{ fontSize: 'clamp(14px, 1.5vw, 16px)' }}
+            />
+            <button className="bg-[#F7FCFF] text-[#EF1923] px-4 py-2 rounded-md font-semibold hover:translate-y-[-2px] transition-all duration-300" style={{ fontSize: 'clamp(12px, 1.5vw, 16px)' }}>
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-[#b21e26] text-[#F7FCFF] py-4 w-screen -m-3">
+        <div className="container mx-auto px-4">
+          <p className="text-center" style={{ fontSize: 'clamp(12px, 1.5vw, 14px)' }}>
+            © 2024 Roshni Sinks. All Rights Reserved. Designed and Developed by Tarun Gupta
+          </p>
         </div>
       </div>
 
