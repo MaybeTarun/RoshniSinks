@@ -1,10 +1,15 @@
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
-import Products from './pages/Products';
-import Contact from './pages/Contact';
-import Blogs from './pages/Blogs';
+import { FaInstagram, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { motion, useScroll, useTransform } from "framer-motion";
+
+const Products = lazy(() => import('./pages/Products'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Blogs = lazy(() => import('./pages/Blogs'));
+
 import img0 from './assets/img0.png';
 import img1 from './assets/img1.png';
 import img2 from './assets/img2.png';
@@ -18,20 +23,20 @@ import eye from './assets/eye.webp';
 import smile from './assets/smile.svg';
 import quotes from './assets/quotes.png';
 import logo2 from './assets/logo2.png';
-import { FaInstagram, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
-import { motion, useScroll, useTransform } from "framer-motion";
 
 function App() {
   return (
     <Router>
       <div>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/blogs" element={<Blogs />} />
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/blogs" element={<Blogs />} />
+          </Routes>
+        </Suspense>
       </div>
     </Router>
   );
@@ -49,9 +54,9 @@ function Home() {
     return () => clearInterval(interval);
   }, [images.length]);
 
-  const handleIndicatorClick = (index: number) => {
+  const handleIndicatorClick = useCallback((index: number) => {
     setCurrentImage(index);
-  };
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -78,7 +83,7 @@ function Home() {
     children: string;
   }
 
-  const FlipText: React.FC<FlipTextProps> = ({ children }) => {
+  const FlipText: React.FC<FlipTextProps> = React.memo(({ children }) => {
     return (
       <motion.h2
         initial="initial"
@@ -125,13 +130,13 @@ function Home() {
         </div>
       </motion.h2>
     );
-  };
+  });
 
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
-  const toggleFAQ = (index: number) => {
+  const toggleFAQ = useCallback((index: number) => {
     setOpenFAQ(openFAQ === index ? null : index);
-  };
+  }, [openFAQ]);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -145,7 +150,7 @@ function Home() {
     index: number;
   }
 
-  const SquareItem: React.FC<SquareItemProps> = ({ number, text, index }) => {
+  const SquareItem: React.FC<SquareItemProps> = React.memo(({ number, text, index }) => {
     const x = useTransform(
       scrollYProgress,
       [0, 0.5, 1],
@@ -163,7 +168,7 @@ function Home() {
         <span className="text-center font-semibold relative z-10 leading-none top-6 md:top-14 text-[clamp(1rem,3vw,2.5rem)]">{text}</span>
       </motion.div>
     );
-  };
+  });
 
   const allReviews = [
     {
@@ -393,7 +398,7 @@ function Home() {
           <div className="grid grid-cols-1 gap-4 h-full content-end">
             {['DURABILITY', 'ELEGANT DESIGN', 'STAIN RESISTANCE'].map((text) => (
               <div key={text} className="p-4 rounded-lg">
-                <p className="text-left font-medium border-b-2 border-r-2 border-black pb-1 text-[clamp(14px,3vw,30px)]">{text}</p>
+                <p className="text-left font-medium border-b-2 border-black pb-1 text-[clamp(14px,3vw,30px)]">{text}</p>
               </div>
             ))}
           </div>
@@ -405,7 +410,7 @@ function Home() {
           <div className="grid grid-cols-1 gap-4 h-full content-end">
             {['EASY MAINTENANCE', 'VARIETY', 'PAISA VASOOL'].map((text) => (
               <div key={text} className="p-4 rounded-lg text-right">
-                <p className="font-medium border-b-2 border-l-2 border-black pb-1 text-[clamp(14px,3vw,30px)]">{text}</p>
+                <p className="font-medium border-b-2 border-black pb-1 text-[clamp(14px,3vw,30px)]">{text}</p>
               </div>
             ))}
           </div>
