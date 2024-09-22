@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react'
 import './App.css';
 import Navbar from './components/Navbar';
 import { FaInstagram, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useAnimation } from "framer-motion";
 
 const Products = lazy(() => import('./pages/Products'));
 const Contact = lazy(() => import('./pages/Contact'));
@@ -46,6 +46,24 @@ function Home() {
   const [rating, setRating] = useState(0);
   const [currentImage, setCurrentImage] = useState(0);
   const images = [img2, img21, img22];
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [feedback, setFeedback] = useState('');
+  const [userReview, setUserReview] = useState<null | {
+    text: string;
+    author: string;
+    rating: number;
+  }>(null);
+
+  const nameAnimation = useAnimation();
+  const emailAnimation = useAnimation();
+  const feedbackAnimation = useAnimation();
+  const ratingAnimation = useAnimation();
+
+  const shakeAnimation = {
+    x: [0, -10, 10, -10, 10, 0],
+    transition: { duration: 0.4 }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -208,7 +226,54 @@ function Home() {
   useEffect(() => {
     const shuffled = [...allReviews].sort(() => 0.5 - Math.random());
     setSelectedReviews(shuffled.slice(0, 2));
+
+    const savedReview = localStorage.getItem('userReview');
+    if (savedReview) {
+      setUserReview(JSON.parse(savedReview));
+    }
   }, []);
+
+  const handleSubmit = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    let isValid = true;
+
+    if (!name) {
+      nameAnimation.start(shakeAnimation);
+      isValid = false;
+    }
+    if (!email) {
+      emailAnimation.start(shakeAnimation);
+      isValid = false;
+    }
+    if (!feedback) {
+      feedbackAnimation.start(shakeAnimation);
+      isValid = false;
+    }
+    if (rating === 0) {
+      ratingAnimation.start(shakeAnimation);
+      isValid = false;
+    }
+
+    if (isValid) {
+      const form = e.target as HTMLFormElement;
+      form.submit();
+
+      setName('');
+      setEmail('');
+      setFeedback('');
+      setRating(0);
+
+      const newReview = {
+        text: feedback,
+        author: name,
+        rating: rating
+      };
+      setUserReview(newReview);
+      localStorage.setItem('userReview', JSON.stringify(newReview));
+
+      alert("Thank you for your valuable feedback! 🌟\n\nYour review will be visible in our reviews section shortly. If you wish to modify your feedback, simply submit a new review, and it will replace your previous one. 😊");
+    }
+  }, [name, email, feedback, rating, nameAnimation, emailAnimation, feedbackAnimation, ratingAnimation]);
 
   return (
     <div className="pt-[85px] m-3" id="reviewformL">
@@ -298,26 +363,57 @@ function Home() {
             delay: 0.2
           }}>
             <h2 className="text-[clamp(16px,2vw,20px)] text-center mb-4">WE WOULD LOVE TO HAVE YOUR FEEDBACK</h2>
-            <form className="flex flex-col justify-between h-full">
+            <form 
+              action="https://formsubmit.co/shriharienterprises2011@gmail.com" 
+              method="POST" 
+              className="flex flex-col justify-between h-full" 
+              onSubmit={handleSubmit}
+            >
+              <input type="hidden" name="_subject" value="New feedback" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_next" value="https://roshnisinks.vercel.app/" />
               <div className="space-y-3">
-                <input
-                  type="text"
-                  placeholder="Name"
-                  className="bg-[#f7fcff40] rounded p-2 text-[#F7FCFF] placeholder-gray-300 w-full text-[clamp(14px,1.5vw,16px)]"
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="bg-[#f7fcff40] rounded p-2 text-[#F7FCFF] placeholder-gray-300 w-full text-[clamp(14px,1.5vw,16px)]"
-                />
-                <textarea
-                  placeholder="Feedback"
-                  rows={3}
-                  className="bg-[#f7fcff40] rounded p-2 text-[#F7FCFF] placeholder-gray-300 resize-none w-full text-[clamp(14px,1.5vw,16px)]"
-                ></textarea>
-                <div className="mt-2 flex justify-between items-center">
-                  <div>
-                    <label className="block mb-1 text-[clamp(14px,1.5vw,16px)]">Rating</label>
+                <motion.div animate={nameAnimation}>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Name *"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="bg-[#f7fcff40] rounded p-2 text-[#F7FCFF] placeholder-gray-300 w-full text-[clamp(14px,1.5vw,16px)]"
+                    required
+                  />
+                </motion.div>
+                <motion.div animate={emailAnimation}>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email *"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="bg-[#f7fcff40] rounded p-2 text-[#F7FCFF] placeholder-gray-300 w-full text-[clamp(14px,1.5vw,16px)]"
+                    required
+                  />
+                </motion.div>
+                <motion.div animate={feedbackAnimation} className="relative">
+                  <textarea
+                    name="feedback"
+                    placeholder="Feedback *"
+                    value={feedback}
+                    onChange={(e) => setFeedback(e.target.value.slice(0, 150))}
+                    maxLength={150}
+                    rows={3}
+                    className="bg-[#f7fcff40] rounded p-2 text-[#F7FCFF] placeholder-gray-300 resize-none w-full text-[clamp(14px,1.5vw,16px)] pr-16 break-words"
+                    required
+                    style={{ overflowWrap: 'break-word', wordWrap: 'break-word', wordBreak: 'break-word' }}
+                  ></textarea>
+                  <span className="absolute bottom-2 right-2 text-[clamp(12px,1.2vw,14px)] text-gray-300">
+                    {feedback.length}/150
+                  </span>
+                </motion.div>
+                <div className="flex items-center justify-between mt-2">
+                  <motion.div animate={ratingAnimation} className="flex-grow">
+                    <label className="block mb-1 text-[clamp(14px,1.5vw,16px)]">Rating *</label>
                     <div className="flex gap-2">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <button
@@ -332,10 +428,11 @@ function Home() {
                         </button>
                       ))}
                     </div>
-                  </div>
+                  </motion.div>
+                  <input type="hidden" name="rating" value={rating} />
                   <button
                     type="submit"
-                    className="bg-[#F7FCFF] text-[#173B45] font-bold py-2 px-4 rounded text-[clamp(14px,1.5vw,16px)] hover:translate-y-[-2px] transition-all duration-300"
+                    className="bg-[#F7FCFF] text-[#173B45] font-bold py-2 px-4 rounded text-[clamp(14px,1.5vw,16px)] hover:translate-y-[-2px] transition-all duration-300 ml-4"
                   >
                     SUBMIT
                   </button>
@@ -471,8 +568,8 @@ function Home() {
       </div>
 
       <div className="flex flex-col lg:flex-row justify-center items-center gap-8 mt-4 lg:mt-8 px-4">
-        {selectedReviews.map((review, index) => (
-          <div key={index} className="bg-[#F7FCFF] rounded-lg p-4 shadow-md w-full lg:w-1/2 max-w-md border-2 border-black">
+        {[...selectedReviews, userReview].filter((review): review is NonNullable<typeof review> => review !== null).map((review, index) => (
+          <div key={index} className="bg-[#F7FCFF] rounded-lg p-4 shadow-md w-full lg:w-1/3 max-w-md border-2 border-black">
             <div className="flex items-start mb-2">
               <img src={quotes} alt="Quotes" className="w-8 h-8 mr-2" />
             </div>
