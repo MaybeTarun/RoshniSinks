@@ -720,7 +720,7 @@ function Home() {
             <FaEnvelope className="mr-2" /> shriharienterprises2011@gmail.com
           </a>          
           <a href="https://maps.app.goo.gl/7jVpGtd6RZNbkzyP9" className="flex items-start text-[clamp(14px,1.5vw,16px)]" target="_blank" rel="noopener noreferrer">
-            <FaMapMarkerAlt className="mr-2 mt-1 ml-0.5" /> Khasra No.86, Prahaladpur Bangar Near Nand Office Prahaladpur Delhi-110042
+            <FaMapMarkerAlt className="mr-2 mt-1 ml-0.5" /> Khasra No.86, Prahaladpur Bangar Near Ndpl Office Prahaladpur Delhi-110042
           </a>
         </div>
         

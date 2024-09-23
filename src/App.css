@@ -16,6 +16,10 @@ body {
   overflow-x: hidden;
 }
 
+img {
+  user-select: none;
+}
+
 *::selection {
   background: #688ED8;
 }

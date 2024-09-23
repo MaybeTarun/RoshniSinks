@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
       </div>
       
       <div 
-        className={`md:hidden fixed z-50 top-24 right-0 bottom-0 w-64 bg-[#F7FCFF] shadow-lg transform transition-transform duration-300 ease-in-out ${
+        className={`md:hidden fixed z-50 top-20 right-0 bottom-0 w-64 bg-[#F7FCFF] shadow-lg transform transition-transform duration-300 ease-in-out ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >

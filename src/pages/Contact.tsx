@@ -78,7 +78,7 @@ function Contact() {
           </p>
           <p className='text-[clamp(16px, 2vw, 24px)]'>
             <a href='tel:+919999333577' className='inline-block mr-2 cursor-pointer'>
-              <FaPhone className='inline-block mr-2' /> +91 99993-33577
+              <FaPhone className='inline-block mr-2' /> +91 99993 33577
             </a>
           </p>
           
