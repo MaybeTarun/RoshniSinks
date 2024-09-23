@@ -17,8 +17,18 @@ import img21 from './assets/img21.png';
 import img22 from './assets/img22.png';
 import img3 from './assets/img3.png';
 import img4 from './assets/img4.png';
-import best from './assets/best.png';
-import buy from './assets/buy.png';
+import r1 from './assets/r1.png';
+import r2 from './assets/r2.png';
+import r3 from './assets/r3.png';
+import r4 from './assets/r4.png';
+import r5 from './assets/r5.png';
+import r6 from './assets/r6.png';
+import l1 from './assets/l1.png';
+import l2 from './assets/l2.png';
+import l3 from './assets/l3.png';
+import l4 from './assets/l4.png';
+import l5 from './assets/l5.png';
+import l6 from './assets/l6.png';
 import eye from './assets/eye.webp';
 import smile from './assets/smile.svg';
 import quotes from './assets/quotes.png';
@@ -106,7 +116,7 @@ function Home() {
       <motion.h2
         initial="initial"
         whileHover="hovered"
-        className="text-[clamp(18px,4vw,32px)] font-medium border-b-2 border-[#EF1923] pb-1 relative overflow-hidden whitespace-nowrap"
+        className="text-[clamp(18px,4vw,32px)] font-semibold border-b-2 border-[#EF1923] pb-1 relative overflow-hidden whitespace-nowrap"
       >
         <div className="relative">
           {children.split("").map((l: string, i: number) => (
@@ -255,14 +265,6 @@ function Home() {
     }
 
     if (isValid) {
-      const form = e.target as HTMLFormElement;
-      form.submit();
-
-      setName('');
-      setEmail('');
-      setFeedback('');
-      setRating(0);
-
       const newReview = {
         text: feedback,
         author: name,
@@ -271,6 +273,11 @@ function Home() {
       setUserReview(newReview);
       localStorage.setItem('userReview', JSON.stringify(newReview));
 
+      setName('');
+      setEmail('');
+      setFeedback('');
+      setRating(0);
+
       alert("Thank you for your valuable feedback! 🌟\n\nYour review will be visible in our reviews section shortly. If you wish to modify your feedback, simply submit a new review, and it will replace your previous one. 😊");
     }
   }, [name, email, feedback, rating, nameAnimation, emailAnimation, feedbackAnimation, ratingAnimation]);
@@ -278,7 +285,7 @@ function Home() {
   return (
     <div className="pt-[85px] m-3" id="reviewformL">
       <div className="flex flex-col">
-        <motion.h1 className="text-[clamp(26px,6vw,70px)] leading-tight font-light tracking-[0.1em] w-full" 
+        <motion.h1 className="text-[clamp(26px,6vw,70px)] leading-tight font-light tracking-[0.1em] w-full"
         initial={{ x: "-100vw" }}
         animate={{ x: 0 }}
         transition={{
@@ -364,14 +371,9 @@ function Home() {
           }}>
             <h2 className="text-[clamp(16px,2vw,20px)] text-center mb-4">WE WOULD LOVE TO HAVE YOUR FEEDBACK</h2>
             <form 
-              action="https://formsubmit.co/shriharienterprises2011@gmail.com" 
-              method="POST" 
               className="flex flex-col justify-between h-full" 
               onSubmit={handleSubmit}
             >
-              <input type="hidden" name="_subject" value="New feedback" />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_next" value="https://roshnisinks.vercel.app/" />
               <div className="space-y-3">
                 <motion.div animate={nameAnimation}>
                   <input
@@ -429,7 +431,6 @@ function Home() {
                       ))}
                     </div>
                   </motion.div>
-                  <input type="hidden" name="rating" value={rating} />
                   <button
                     type="submit"
                     className="bg-[#F7FCFF] text-[#173B45] font-bold py-2 px-4 rounded text-[clamp(14px,1.5vw,16px)] hover:translate-y-[-2px] transition-all duration-300 ml-4"
@@ -495,7 +496,7 @@ function Home() {
           <div className="grid grid-cols-1 gap-4 h-full content-end">
             {['DURABILITY', 'ELEGANT DESIGN', 'STAIN RESISTANCE'].map((text) => (
               <div key={text} className="p-4 rounded-lg">
-                <p className="text-left font-medium border-b-2 border-black pb-1 text-[clamp(14px,3vw,30px)]">{text}</p>
+                <p className="text-left font-medium border-b-2 border-r-2 border-black pb-1 text-[clamp(14px,3vw,30px)]">{text}</p>
               </div>
             ))}
           </div>
@@ -507,7 +508,7 @@ function Home() {
           <div className="grid grid-cols-1 gap-4 h-full content-end">
             {['EASY MAINTENANCE', 'VARIETY', 'PAISA VASOOL'].map((text) => (
               <div key={text} className="p-4 rounded-lg text-right">
-                <p className="font-medium border-b-2 border-black pb-1 text-[clamp(14px,3vw,30px)]">{text}</p>
+                <p className="font-medium border-b-2 border-l-2 border-black pb-1 text-[clamp(14px,3vw,30px)]">{text}</p>
               </div>
             ))}
           </div>
@@ -527,36 +528,37 @@ function Home() {
         ))}
       </div>
 
-      <div className="lg:mt-24 mt-8 w-full select-none">
-        <div className="w-[80%] h-auto">
-          <img 
-            src={best}
-            alt="Best" 
-            className="w-full h-auto object-cover object-left"
-          />
+      <div className='-m-3'>
+        <div className="w-full overflow-hidden relative mt-12 lg:mt-20">
+          <div className="flex animate-scrollLeft">
+            {[l1, l2, l3, l4, l5, l6, l1, l2, l3, l4, l5, l6].map((img, index) => (
+              <div key={index} className="flex-shrink-0 lg:w-[250px] lg:h-[250px] w-[150px] h-[150px]">
+                <img src={img} alt={`carousel-${index}`} className="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="w-full overflow-hidden relative mt-4">
+          <div className="flex animate-scrollRight">
+            {[r1, r2, r3, r4, r5, r6, r1, r2, r3, r4, r5, r6].map((img, index) => (
+              <div key={index} className="flex-shrink-0 lg:w-[250px] lg:h-[250px] w-[150px] h-[150px]">
+                <img src={img} alt={`carousel-${index}`} className="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex justify-center lg:mt-8 mt-6 lg:-mr-3">
+          <a
+            href="/products"
+            className="bg-[#EF1923] text-[#F7FCFF] font-semibold py-2 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-full hover:translate-y-[-2px] transition-all duration-300 ease-in-out flex items-center text-[clamp(12px,2vw,18px)]"
+          >
+            SHOP NOW
+          </a>
         </div>
       </div>
 
-      <div className="lg:mt-8 mt-2 w-full flex justify-end select-none">
-        <div className="w-[80%] h-auto">
-          <img 
-            src={buy}
-            alt="Buy" 
-            className="w-full h-auto object-cover object-right"
-          />
-        </div>
-      </div>
-
-      <div className="flex justify-center lg:mt-8 mt-6 lg:-mr-3">
-        <a
-          href="/products"
-          className="bg-[#EF1923] text-[#F7FCFF] font-semibold py-2 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-full hover:translate-y-[-2px] transition-all duration-300 ease-in-out flex items-center text-[clamp(12px,2vw,18px)]"
-        >
-          SHOP NOW
-        </a>
-      </div>
-
-      <div className="-m-3 w-screen bg-[#EF1923] h-16 md:h-28 lg:h-36 lg:mt-36 mt-16 mb-8 relative">
+      <div className="-m-3 w-screen bg-[#EF1923] h-16 md:h-28 lg:h-36 lg:mt-44 mt-24 mb-8 relative">
         <img src={eye} alt="Eye" className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto lg:w-1/5 md:w-1/4 w-1/3 object-cover rounded-md" />
         <img src={smile} alt="Smile" className="absolute left-1/2 bottom-2 lg:bottom-3 transform -translate-x-1/2 h-auto lg:w-[6.67%] md:w-[8.33%] w-[11.11%] object-cover" />
       </div>
@@ -631,6 +633,7 @@ function Home() {
               <>◉ <a href="tel:+919999333577" className="underline font-semibold">Call Us</a>: Contact us directly to place your order.</>,
               <>◉ <a href="https://wa.me/9999333577" target="_blank" rel="noopener noreferrer" className="underline font-semibold">WhatsApp Catalog</a>: Use our WhatsApp catalog to browse, add products to your cart, and place your order.</>,
               <>◉ <a href="/products" className="underline font-semibold">Order Online</a>: Visit our website, fill your cart with the sinks you need, and click the Place Order button. Make sure you're logged in before placing the order.</>,
+              <>◉ <a href="/products" className="underline font-semibold">Visit our Site</a>: Visit our manufacturing site in Delhi to see our sinks in person and place your order.</>,
               "Once your order is placed, you will receive a confirmation email at the email address you provided, confirming your order details."
             ]
           }
@@ -682,7 +685,7 @@ function Home() {
             viewBox="0 0 24 24" 
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7-7 7" />
           </svg>
         </div>
 
@@ -740,9 +743,9 @@ function Home() {
         </div>
       </div>
 
-      <div className="bg-[#b21e26] text-[#F7FCFF] py-4 w-screen -m-3">
+      <div className="bg-[#EF1923] brightness-75 py-4 w-screen -m-3">
         <div className="container mx-auto px-4">
-          <p className="text-center text-[clamp(12px,1.5vw,14px)]">
+          <p className="text-[#F7FCFF] text-center text-[clamp(12px,1.5vw,14px)]">
             © 2024 Roshni Sinks. All Rights Reserved. Designed and Developed by Tarun Gupta
           </p>
         </div>

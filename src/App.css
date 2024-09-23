@@ -35,3 +35,31 @@ body {
 .animate-bounce-horizontal {
   animation: bounce-horizontal 1s infinite;
 }
+
+@keyframes scrollRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-scrollRight {
+  display: flex;
+  animation: scrollRight 10s linear infinite;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-scrollLeft {
+  display: flex;
+  animation: scrollLeft 10s linear infinite;
+}
