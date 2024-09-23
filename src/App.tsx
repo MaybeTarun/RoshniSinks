@@ -283,7 +283,7 @@ function Home() {
   }, [name, email, feedback, rating, nameAnimation, emailAnimation, feedbackAnimation, ratingAnimation]);
 
   return (
-    <div className="pt-[85px] m-3" id="reviewformL">
+    <div className="pt-[70px] m-3" id="reviewformL">
       <div className="flex flex-col">
         <motion.h1 className="text-[clamp(26px,6vw,70px)] leading-tight font-light tracking-[0.1em] w-full"
         initial={{ x: "-100vw" }}
@@ -718,7 +718,8 @@ function Home() {
           </a>
           <a href="mailto:shriharienterprises2011@gmail.com" className="mb-2 flex items-center text-[clamp(14px,1.5vw,16px)]">
             <FaEnvelope className="mr-2" /> shriharienterprises2011@gmail.com
-          </a>          <a href="https://maps.app.goo.gl/5555555555555555" className="flex items-start text-[clamp(14px,1.5vw,16px)]" target="_blank" rel="noopener noreferrer">
+          </a>          
+          <a href="https://maps.app.goo.gl/7jVpGtd6RZNbkzyP9" className="flex items-start text-[clamp(14px,1.5vw,16px)]" target="_blank" rel="noopener noreferrer">
             <FaMapMarkerAlt className="mr-2 mt-1 ml-0.5" /> Khasra No.86, Prahaladpur Bangar Near Nand Office Prahaladpur Delhi-110042
           </a>
         </div>

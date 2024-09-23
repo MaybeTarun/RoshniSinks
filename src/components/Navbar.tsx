@@ -11,6 +11,10 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   const isActive = (path: string) => location.pathname === path;
 
   const linkClass = (path: string) =>
@@ -19,7 +23,7 @@ const Navbar: React.FC = () => {
     } hover:text-[#EF1923]`;
 
   return (
-    <nav className="bg-[#F7FCFF] rounded-[1rem] m-3 z-50 fixed w-[calc(100%-1.5rem)]">
+    <nav className="bg-[#F7FCFF] rounded-[1rem] ml-3 mr-3 z-50 fixed w-[calc(100%-1.5rem)]">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
@@ -59,10 +63,10 @@ const Navbar: React.FC = () => {
       >
         <div className="p-4">
           <div className="space-y-4">
-            <Link to="/" className={`block ${linkClass('/')}`}>Home</Link>
-            <Link to="/products" className={`block ${linkClass('/products')}`}>Products</Link>
-            <Link to="/contact" className={`block ${linkClass('/contact')}`}>Contact Us</Link>
-            <Link to="/blogs" className={`block ${linkClass('/blogs')}`}>Blogs</Link>
+            <Link to="/" className={`block ${linkClass('/')}`} onClick={closeMenu}>Home</Link>
+            <Link to="/products" className={`block ${linkClass('/products')}`} onClick={closeMenu}>Products</Link>
+            <Link to="/contact" className={`block ${linkClass('/contact')}`} onClick={closeMenu}>Contact Us</Link>
+            <Link to="/blogs" className={`block ${linkClass('/blogs')}`} onClick={closeMenu}>Blogs</Link>
             <button className="w-full bg-[#EF1923] text-[#F7FCFF] px-4 py-2 rounded-xl">Sign Up</button>
             <button className="w-full bg-[#F7FCFF] text-[#EF1923] px-4 py-2 rounded-xl border-[#EF1923] border-2">Login</button>
           </div>
